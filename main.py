@@ -1,10 +1,12 @@
 import streamlit as st
+from clv import main as clv_model
+from home import main as homepage
 
-st.set_page_config(
-    page_title="ML MODELLING IN SNOWFLAKE",
-)
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Go to", ["HOME", "CLV", "PCS", "ROI"])
 
-st.write("# We have used three different ML Models here.")
-
-st.sidebar.success("Select a ML Model above.")
+if page == "CLV":
+    clv_model()
+elif page == "HOME":
+    homepage()
 
