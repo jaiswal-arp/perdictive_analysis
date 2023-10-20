@@ -8,8 +8,16 @@
          {
              "name": "Martial Status",
              "type": "dropdown",
-             "values": ["No Selection","Married","Single", "Widowed", "Divorced"]}
- 
+             "values": ["No Selection","Married","Single", "Widowed", "Divorced"]},
+          {
+              "name": "Education Level",
+              "type": "dropdown",
+              "values": ["No Selection","Primary", "Secondary", "College", "2 Year Degree","4 Year Degree", "Advanced Degree"]},
+          {
+              "name": "Credit Rating",
+              "type": "dropdown",
+              "values": ["No Selection","Good", "High Risk", "Low Risk"]}
+      
  
          ]
      }

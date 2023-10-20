@@ -38,8 +38,7 @@ def main():
         var_value = st.sidebar.selectbox(label=var["name"], options= var["values"])
         variable_list.append(var_value)
 
-    print(variable_list)
-    var = a = b = 0 
+    var = a = b = c = d =0 
     match variable_list[0]:
         case "Male":
             a = 'M'
@@ -57,9 +56,31 @@ def main():
             b = 'D'
         case "Unknown": 
             b = 'U'
+
+    match variable_list[2]:
+        case "Primary":
+            c = 'PRIMARY'
+        case "Secondary":
+            c = 'SECONDARY'
+        case "College": 
+            c = 'COLLEGE'
+        case "2 Year Degree": 
+            c = '2YRDEGREE'
+        case "4 Year Degree": 
+            c = '4YRDEGREE'
+        case "Advanced": 
+            c = 'ADVANCEDDEGREE'
+
+    match variable_list[3]:
+        case "Good":
+            d = 'GOOD'
+        case "High Risk":
+            d = 'HIGHRISK'
+        case "Low Risk": 
+            d = 'LOWRISK'
            
-    updated_query = data['query'].format(a= a,b = b)
-    print(updated_query)    
+    updated_query = data['query'].format(a= a,b = b, c =c , d= d)
+    print(updated_query)
     if st.sidebar.button('Run'):
         try:
            df_clv = session.sql(updated_query).to_pandas()
@@ -71,4 +92,4 @@ def main():
     
  
     
-    
+     
