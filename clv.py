@@ -33,12 +33,18 @@ def main():
     with open("./query.json") as f:
         data = json.load(f)  
 
+    
+
     variable_list = []
     for var in data['variables']:
         var_value = st.sidebar.selectbox(label=var["name"], options= var["values"])
         variable_list.append(var_value)
 
-    var = a = b = c = d =0 
+    values = st.sidebar.slider('Select a range for Birth Year',1900, 2010, (1970, 1980))
+
+    #Using match case to modify columns for the query
+    var = a = b = c = d = e = f =0 
+    
     match variable_list[0]:
         case "Male":
             a = 'M'
@@ -78,18 +84,30 @@ def main():
             d = 'HIGHRISK'
         case "Low Risk": 
             d = 'LOWRISK'
-           
-    updated_query = data['query'].format(a= a,b = b, c =c , d= d)
-    print(updated_query)
+
+    
+    
+    #Assign values to the parameters selected by user 
+    e = values[0]
+    f = values[1]
+
+    #Update the query with all the parameter values
+    updated_query = data['query'].format(a= a,b = b, c =c , d= d, e=e, f=f)
+
+
     if st.sidebar.button('Run'):
         try:
            df_clv = session.sql(updated_query).to_pandas()
            st.write("Query executed successfully")
            st.write(df_clv)
+           aggregated_data = df_clv.groupby('BIRTH_YEAR').agg({'ACTUAL_SALES': 'sum', 'PREDICTED_SALES': 'sum'}).reset_index()
+           st.line_chart(aggregated_data.set_index('BIRTH_YEAR'), color=["#FF0000", "#0000FF"])
         except Exception as e:
           st.error(f"Error executing the query: {str(e)}")
+
+    
     
     
  
     
-     
+    
