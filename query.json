@@ -1,0 +1,22 @@
+{
+  "query" : "SELECT C_BIRTH_YEAR AS BIRTH_YEAR, TOTAL_SALES AS ACTUAL_SALES, PREDICTED AS PREDICTED_SALES FROM PREDICTIONS_FOR_CLV WHERE CD_GENDER_{a} = 1  AND CD_MARITAL_STATUS_{b} = 1 AND CD_EDUCATION_STATUS_{c} AND CD_CREDIT_RATING_{d} = 1  AND C_BIRTH_YEAR BETWEEN {e} AND {f} LIMIT 100",
+  "variables":[
+         {
+             "name": "Gender",
+             "type": "dropdown",
+             "values": ["Male","Female"]},
+         {
+             "name": "Martial Status",
+             "type": "dropdown",
+             "values": ["Married","Single", "Widowed", "Divorced"]},
+         {
+             "name": "Education Level",
+             "type": "dropdown",
+             "values": ["Primary", "Secondary", "College", "2 Year Degree","4 Year Degree", "Advanced Degree"]},
+         {
+             "name": "Credit Rating",
+             "type": "dropdown",
+             "values": ["Good", "High Risk", "Low Risk"]}
+     
+         ]
+     }
