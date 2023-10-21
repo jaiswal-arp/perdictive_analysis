@@ -45,10 +45,9 @@ def main():
     #Using match case to modify columns for the query
     var = a = b = c = d = e = f =0 
     
-    match variable_list[0]:
-        case "Male":
+    if variable_list[0] == "Male":
             a = 'M'
-        case "Female": 
+    elif variable_list[0] == "Female":  
             a = 'F'
                 
     match variable_list[1]:
