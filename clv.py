@@ -21,10 +21,7 @@ def main():
     
     
     # Header
-    head1, head2 = st.columns([8, 1])
-
-    with head1:
-      st.header("Customer Lifetime Value")
+    st.header("Customer Lifetime Value")
     
     
     
@@ -34,12 +31,13 @@ def main():
         data = json.load(f)  
 
     
-
+    #Parsing the variables in json file
     variable_list = []
     for var in data['variables']:
         var_value = st.sidebar.selectbox(label=var["name"], options= var["values"])
         variable_list.append(var_value)
 
+    #Slider for Birth Year selection
     values = st.sidebar.slider('Select a range for Birth Year',1900, 2010, (1970, 1980))
 
     #Using match case to modify columns for the query
@@ -49,40 +47,39 @@ def main():
             a = 'M'
     elif variable_list[0] == "Female":  
             a = 'F'
+            
                 
-    match variable_list[1]:
-        case "Married":
+    if variable_list[1] == 'Married':
             b = 'M'
-        case "Single":
-            b = 'S'
-        case "Widowed": 
-            b = 'W'
-        case "Divorced": 
-            b = 'D'
-        case "Unknown": 
-            b = 'U'
+    elif variable_list[1] == 'Single': 
+            b = 'S'       
+    elif variable_list[1] == 'Widowed': 
+            b = 'W'            
+    elif variable_list[1] == 'Divorced': 
+            b = 'D'            
 
-    match variable_list[2]:
-        case "Primary":
-            c = 'PRIMARY'
-        case "Secondary":
-            c = 'SECONDARY'
-        case "College": 
-            c = 'COLLEGE'
-        case "2 Year Degree": 
-            c = '2YRDEGREE'
-        case "4 Year Degree": 
+    
+    if variable_list[2] == 'Primary': 
+            c = 'PRIMARY' 
+    elif variable_list[2] == 'SEecondary': 
+            c = 'SECONDARY'  
+    elif variable_list[2] == 'College': 
+            c = 'COLLEGE' 
+    elif variable_list[2] == '2 Year Degree': 
+            c = '2YRDEGREE'  
+    elif variable_list[2] == '4 Year Degree': 
             c = '4YRDEGREE'
-        case "Advanced": 
-            c = 'ADVANCEDDEGREE'
+    elif variable_list[2] == 'Advanced Degree': 
+            c = 'Advanced'
 
-    match variable_list[3]:
-        case "Good":
-            d = 'GOOD'
-        case "High Risk":
-            d = 'HIGHRISK'
-        case "Low Risk": 
-            d = 'LOWRISK'
+            
+    if variable_list[3] == 'Good': 
+            d = 'GOOD'   
+    elif variable_list[3] == 'High Risk': 
+            d = 'HIGHRISK' 
+    elif variable_list[3] == 'Low Risk': 
+            d = 'LOWRISK' 
+    
 
     
     
@@ -98,9 +95,9 @@ def main():
         try:
            df_clv = session.sql(updated_query).to_pandas()
            st.write("Query executed successfully")
-           st.write(df_clv)
            aggregated_data = df_clv.groupby('BIRTH_YEAR').agg({'ACTUAL_SALES': 'sum', 'PREDICTED_SALES': 'sum'}).reset_index()
            st.line_chart(aggregated_data.set_index('BIRTH_YEAR'), color=["#FF0000", "#0000FF"])
+           st.write(df_clv)
         except Exception as e:
           st.error(f"Error executing the query: {str(e)}")
 
