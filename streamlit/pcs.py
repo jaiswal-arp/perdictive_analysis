@@ -1,16 +1,20 @@
 import streamlit as st
-from snowflake.snowpark.session import Session
 from snowflake.snowpark.functions import *
-import json
+import os
+from dotenv import load_dotenv
+from snowflake.snowpark.session import Session
 
+load_dotenv()
+
+connection_parameters = {
+    "account": os.environ.get("SNOWFLAKE_ACCOUNT_IDENTIFIER"),
+    "user": os.environ.get("SNOWFLAKE_USERNAME"),
+    "password": os.environ.get("SNOWFLAKE_PASSWORD"),
+    "database": os.environ.get("SNOWFLAKE_DB"),
+    "schema": os.environ.get("SNOWFLAKE_SCHEMA")
+}
+session = Session.builder.configs(connection_parameters).create()
 def main():
-    # Create a session to Snowflake with credentials
-    with open("/Users/arpitajaiswal/Downloads/SnowPark/snowpark-python-demos/tpcds-customer-lifetime-value/creds.json") as f:
-        connection_parameters = json.load(f)
-    session = Session.builder.configs(connection_parameters).create()
-
-
-# Header
     head1, head2 = st.columns([8, 1])
 
     with head1:
@@ -55,18 +59,13 @@ def main():
         st.markdown("#### Search Criteria")
         st.markdown('##')
         asl = st.slider("Session Length", minasl, maxasl, (minasl, minasl+5), 1)
-        #st.write("Session Length ", asl)
         toa = st.slider("Time on App", mintoa, maxtoa, (mintoa, mintoa+5), 1)
-        #st.write("Time on App ", toa)
         tow = st.slider("Time on Website", mintow, maxtow, (mintow, mintow+5), 1)
-        #st.write("Time on Website ", tow)
         lom = st.slider("Length of Membership", minlom,
                     maxlom, (minlom, minlom+4), 1)
-        #st.write("Length of Membership ", lom)
 
     # Column 2 (3)
     with col2:
-     #avg_sess_len = st.slider("Avg. Session Length", min_sess_len, max_sess_len, (min_sess_len,min_sess_len+1), 1)
         st.markdown("#### Customer Predicted Spend")
         st.markdown('##')
 

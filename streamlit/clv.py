@@ -1,47 +1,40 @@
-
 import streamlit as st
-from snowflake.snowpark.session import Session
-from snowflake.snowpark.functions import *
 import json
-import numpy as np
+import os
+from dotenv import load_dotenv
+from snowflake.snowpark.session import Session
 
+load_dotenv()
 
+connection_parameters = {
+    "account": os.environ.get("SNOWFLAKE_ACCOUNT_IDENTIFIER"),
+    "user": os.environ.get("SNOWFLAKE_USERNAME"),
+    "password": os.environ.get("SNOWFLAKE_PASSWORD"),
+    "database": os.environ.get("SNOWFLAKE_DB"),
+    "schema": os.environ.get("SNOWFLAKE_SCHEMA")
+}
+session = Session.builder.configs(connection_parameters).create()
 
 def main():
-    
-    # Create a session to Snowflake with credentials
-    with open("creds.json") as f:
-       connection_parameters = json.load(f)
-    session = Session.builder.configs(connection_parameters).create()
+
     session.use_warehouse("SNOWPARK_OPT_WH")
     session.use_database("TPCDS_XGBOOST")
     session.use_schema("DEMO")
     st.session_state['snowpark_session'] = session
 
-    
-    
-    # Header
     st.header("Customer Lifetime Value")
     
-    
-    
-   # Open the JSON file for reading
-    
-    with open("./query.json") as f:
+    with open("Assets/query.json") as f:
         data = json.load(f)  
 
-    
-    #Parsing the variables in json file
     variable_list = []
     for var in data['variables']:
         var_value = st.sidebar.selectbox(label=var["name"], options= var["values"])
         variable_list.append(var_value)
 
-    #Slider for Birth Year selection
     values = st.sidebar.slider('Select a range for Birth Year',1900, 2010, (1970, 1980))
 
-    #Using match case to modify columns for the query
-    var = a = b = c = d = e = f =0 
+    var = a = b = c = d = e = f = 0
     
     if variable_list[0] == "Male":
             a = 'M'
@@ -79,15 +72,10 @@ def main():
             d = 'HIGHRISK' 
     elif variable_list[3] == 'Low Risk': 
             d = 'LOWRISK' 
-    
 
-    
-    
-    #Assign values to the parameters selected by user 
     e = values[0]
     f = values[1]
 
-    #Update the query with all the parameter values
     updated_query = data['query'].format(a= a,b = b, c =c , d= d, e=e, f=f)
 
 
@@ -100,10 +88,3 @@ def main():
            st.write(df_clv)
         except Exception as e:
           st.error(f"Error executing the query: {str(e)}")
-
-    
-    
-    
- 
-    
-    
