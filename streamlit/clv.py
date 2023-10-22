@@ -24,7 +24,7 @@ def main():
 
     st.header("Customer Lifetime Value")
     
-    with open("Assets/query.json") as f:
+    with open("Assets/CLV/query.json") as f:
         data = json.load(f)  
 
     variable_list = []
