@@ -5,7 +5,7 @@
 ----- 
 > [Live Application link](https://algodm-fall2023-team4-assignment02-streamlitmain-l1iq34.streamlit.app/) <br>
 > [Codelab Slides](https://codelabs-preview.appspot.com/?file_id=1yFpF8W8DZRi_x_wzwsiOPCgmOqK-mBJh2v4GWBY8gVU#0) <br>
-> [Application Demo/Presentation]()
+> [Application Demo/Presentation](https://github.com/AlgoDM-Fall2023-Team4/Assignment02/blob/main/Assets/Zoom%20Recording/video1024760713.mp4)
 
 ----- 
 
@@ -16,7 +16,13 @@
 ----- 
 
 ## Objective
-<replace-this>
+This application aims to work on the use cases to understand the factors that affect the advertising campaigns/revenue/ life time value of customers in any business.
+We are using models like XGBoost, Linear Regression, Random Forest and other built-in snowflake models to train with the datasets and based on certain key factors we are finding the predicted values.<br>
+The use cases are as follows : <br>
+1. Forecast & Anomaly Detection
+2. Customer Lifetime Value
+3. Predict Customer Spend
+4. Return On Investment Prediction
 
 ## Project Structure
 ```
