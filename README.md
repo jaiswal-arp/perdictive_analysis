@@ -1,14 +1,7 @@
-# Assignment02
-
-
-
+# Predictive Analytics for Enhanced Advertising Campaigns and Revenue Optimization
 ----- 
 > [Live Application link](https://algodm-fall2023-team4-assignment02-streamlitmain-l1iq34.streamlit.app/) <br>
-> [Codelab Slides](https://codelabs-preview.appspot.com/?file_id=1yFpF8W8DZRi_x_wzwsiOPCgmOqK-mBJh2v4GWBY8gVU#0) <br>
-> [Application Demo/Presentation](https://github.com/AlgoDM-Fall2023-Team4/Assignment02/blob/main/Assets/Zoom%20Recording/video1024760713.mp4)
-
------ 
-
+-----
 ## Index
   - [Objective](#objective)
   - [Project Structure](#project-structure)
